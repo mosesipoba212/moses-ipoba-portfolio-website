@@ -172,6 +172,27 @@ export async function syncLinkedInData() {
   }
 }
 
+export async function syncNotionData() {
+  try {
+    // TODO: Implement Notion sync when Notion service is ready
+    console.log("Notion sync not yet implemented")
+    revalidatePath("/admin")
+    revalidatePath("/")
+    return {
+      success: true,
+      message: "Notion sync not yet implemented",
+      experience: [],
+      skills: [],
+    }
+  } catch (error) {
+    console.error("Error syncing Notion data:", error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    }
+  }
+}
+
 export async function testLinkedInConnection() {
   try {
     return await linkedInService.testConnection()

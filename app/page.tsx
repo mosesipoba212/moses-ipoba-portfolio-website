@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { fetchGitHubRepos, fetchGitHubUser } from "@/lib/github"
 import { getExperienceWithAllSources, getSkillsWithAllSources, getLinkedInProfile } from "@/lib/actions"
 import { SkillUsageTracker } from "@/components/skill-usage-tracker"
-import { Github, Mail, MapPin, Phone, Star, ArrowRight, Linkedin, Download } from "lucide-react"
+import { Github, Mail, MapPin, Phone, Star, ArrowRight, Linkedin } from "lucide-react"
 import Link from "next/link"
 
 export default async function ResumePage() {
@@ -110,16 +110,6 @@ export default async function ResumePage() {
               <Link href="#experience">
                 <ArrowRight className="w-5 h-5 mr-2" />
                 View Experience
-              </Link>
-            </Button>
-            <Button
-              size="lg"
-              asChild
-              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105"
-            >
-              <Link href="#download">
-                <Download className="w-5 h-5 mr-2" />
-                Download Resume
               </Link>
             </Button>
           </div>
@@ -305,66 +295,6 @@ export default async function ResumePage() {
           </div>
         </section>
       )}
-
-      {/* Resume Download Section - Simplified */}
-      <section id="download" className="py-32 bg-gradient-to-b from-black to-gray-900">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-6xl font-thin mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              Download Resume
-            </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Get a professionally formatted PDF with all the latest updates
-            </p>
-          </div>
-
-          <div className="text-center">
-            <Button
-              onClick={async () => {
-                try {
-                  const response = await fetch("/api/generate-resume", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      format: "pdf",
-                      readonly: true,
-                      data: {
-                        personalInfo,
-                        experience: visibleExperience,
-                        skills: visibleSkills,
-                        projects: githubRepos,
-                      },
-                    }),
-                  })
-
-                  if (response.ok) {
-                    const blob = await response.blob()
-                    const url = window.URL.createObjectURL(blob)
-                    const a = document.createElement("a")
-                    a.href = url
-                    a.download = `${personalInfo.name.replace(/\s+/g, "_")}_Resume.pdf`
-                    document.body.appendChild(a)
-                    a.click()
-                    document.body.removeChild(a)
-                    window.URL.revokeObjectURL(url)
-                  }
-                } catch (error) {
-                  console.error("Download failed:", error)
-                }
-              }}
-              size="lg"
-              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 px-12 py-6 rounded-full text-xl font-medium transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/25"
-            >
-              <Download className="w-6 h-6 mr-3" />
-              Download PDF Resume
-            </Button>
-
-            <p className="text-gray-400 mt-8 max-w-2xl mx-auto">
-              🔒 Read-only protected • ✅ Always up-to-date • 📄 Professional format
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-32 bg-gradient-to-t from-black to-gray-900">
