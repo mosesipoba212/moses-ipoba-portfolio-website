@@ -17,4 +17,3 @@ Your project is live at:
 **[https://vercel.com/mosesipoba212s-projects/v0-self-updating-resume-website](https://vercel.com/mosesipoba212s-projects/v0-self-updating-resume-website)**
 
 ## Build your app
-

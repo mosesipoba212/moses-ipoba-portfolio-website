@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server"
 import { fetchGitHubUser, fetchGitHubRepos } from "@/lib/github"
 import { syncAllData } from "@/lib/actions"
+import { revalidatePath } from "next/cache"
 
-// Replace the existing cron job logic:
 export async function GET() {
   try {
+    // Force revalidation of all paths
+    revalidatePath("/", "layout")
+
     // Update GitHub, LinkedIn, and OneDrive data
     const [user, repos, allDataSync] = await Promise.all([fetchGitHubUser(), fetchGitHubRepos(), syncAllData()])
 

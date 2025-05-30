@@ -8,8 +8,11 @@ export async function fetchGitHubUser(): Promise<GitHubUser | null> {
       headers: {
         Authorization: `token ${process.env.GITHUB_TOKEN}`,
         Accept: "application/vnd.github.v3+json",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
       },
-      next: { revalidate: 3600 }, // Cache for 1 hour
+      cache: "no-store",
+      next: { revalidate: 0 }, // Disable caching completely
     })
 
     if (!response.ok) {
@@ -31,8 +34,11 @@ export async function fetchGitHubRepos(): Promise<GitHubRepo[]> {
         headers: {
           Authorization: `token ${process.env.GITHUB_TOKEN}`,
           Accept: "application/vnd.github.v3+json",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
         },
-        next: { revalidate: 3600 }, // Cache for 1 hour
+        cache: "no-store",
+        next: { revalidate: 0 }, // Disable caching completely
       },
     )
 
