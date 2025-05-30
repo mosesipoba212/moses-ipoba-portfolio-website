@@ -1,5 +1,3 @@
-"use client"
-
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { fetchGitHubRepos, fetchGitHubUser } from "@/lib/github"
@@ -33,15 +31,6 @@ export default async function ResumePage() {
     location: linkedInProfile?.location || githubUser?.location || "London, England, United Kingdom",
     avatar: githubUser?.avatar_url || linkedInProfile?.profilePicture,
     linkedinUrl: linkedInProfile?.publicProfileUrl || "https://www.linkedin.com/in/moses-ipoba-b252a7337/",
-  }
-
-  const personalInfo = {
-    name: profileData.name,
-    title: profileData.title,
-    email: "mosesipoba212@gmail.com",
-    phone: "07535287863",
-    location: profileData.location,
-    linkedinUrl: profileData.linkedinUrl,
   }
 
   return (
